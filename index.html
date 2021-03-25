@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Components Fundamentals</title>
+    <!-- semantic ui css stylesheet cdn -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+</head>
+<body>
+    <div id="app" class="ui text container">
+        <h1>GitHub Profile Card Generator</h1>
+        
+        <div class="ui form">
+            <label class="ui label">Enter a username and press enter:</label>
+            <!-- keyup enter event which fires the submit method upon pressing enter -->
+            <input class="ui input search" type="search" @keyup.enter="submit">
+        </div>
+        
+        <div class="ui container"></div>
+        <h4>Click the name or followers to go to the link</h4>
+        <div class="ui cards">
+            <!-- username prop bound to the instance data value of username -->
+            <github-user-card :username="username"></github-user-card>
+        </div>
+    </div>
+
+    <!-- Template for GitHub card -->
+    <script type="text/x-template" id="github-user-card-template">
+        <div class="ui card">
+            <div class="image">
+                <!-- src bound to the component data value of the user object -->
+                <img :src="user.avatar_url">
+            </div>
+            <div class="content">
+                <!-- href bound to the component computed value profile function -->
+                <a :href="profile" class="header">
+                    {{ user.name }}
+                </a>
+                <div class="meta">
+                    <span class="date">Joined in {{ user.created_at.slice(0,4) }}</span>
+                </div>
+                <div class="description">
+                    {{ user.bio }}
+                </div>
+            </div>
+            <div class="extra content">
+                <!-- href bound to the component computed value followers function -->
+                <a :href="followers">
+                    <i class="user icon"></i>
+                    {{ user.followers }} Friends
+                </a>
+            </div>
+        </div>
+    </script>
+
+    <!-- Import Vue.js and Axios -->
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
